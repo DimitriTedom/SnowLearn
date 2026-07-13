@@ -1,6 +1,6 @@
-# SnowLearn — Plateforme LMS E-Learning Premium (Dark Mode)
+# SnowLearn — Plateforme LMS E-Learning Premium (Light Mode)
 
-**SnowLearn** est un système de gestion de l'apprentissage (LMS) moderne et épuré, conçu avec une esthétique **Premium Dark Mode** (Indigo/Violet/Glassmorphism). La plateforme supporte trois rôles d'utilisateurs distincts avec des fonctionnalités dédiées, un suivi de progression automatique en AJAX et un système interactif de quiz et de certification.
+**SnowLearn** est un système de gestion de l'apprentissage (LMS) moderne et épuré, conçu avec une esthétique **Premium Light Mode** (Indigo/Violet/Gris neutre). La plateforme supporte trois rôles d'utilisateurs distincts avec des fonctionnalités dédiées, un suivi de progression automatique en AJAX et un système interactif de quiz et de certification.
 
 ---
 

@@ -2,7 +2,6 @@
 require_once 'includes/config.php';
 require_once 'includes/auth.php';
 
-// Redirect already logged in users
 if (isLoggedIn()) {
     $role = $_SESSION['role'];
     if ($role === 'admin')        header('Location: ' . BASE_URL . '/admin/dashboard.php');
@@ -48,17 +47,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SnowLearn — Plateforme d'Apprentissage Premium</title>
+  <title>SnowLearn — Plateforme d'Apprentissage</title>
   <meta name="description" content="SnowLearn : la plateforme e-learning qui transforme vos connaissances en compétences certifiées. Cours PDF, vidéo, quiz et certificats.">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <div class="landing-page">
-  <!-- Background blobs -->
-  <div class="landing-bg-blob blob1"></div>
-  <div class="landing-bg-blob blob2"></div>
-
-  <!-- Nav -->
   <nav class="landing-nav">
     <div style="display:flex;align-items:center;gap:10px;">
       <div class="logo-mark">SL</div>
@@ -69,14 +63,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
   </nav>
 
-  <!-- Hero + Login -->
   <div class="landing-hero">
-
-    <!-- Left: Hero text -->
     <div class="hero-left">
       <div class="hero-pill">
         <span></span>
-        Plateforme d'apprentissage nouvelle génération
+        Plateforme d'apprentissage
       </div>
 
       <h1 class="hero-title">
@@ -117,7 +108,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
     </div>
 
-    <!-- Right: Login form -->
     <div id="login-section">
       <div class="login-box">
         <h2>Connexion</h2>
@@ -166,7 +156,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <a href="register.php" style="color:var(--primary);font-weight:600;">S'inscrire</a>
         </p>
 
-        <!-- Demo accounts -->
         <div style="margin-top:20px;padding:14px;background:var(--surface2);border-radius:var(--radius);border:1px solid var(--border);">
           <p style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dim);margin-bottom:10px;">Comptes de démo</p>
           <div style="display:flex;flex-direction:column;gap:6px;">

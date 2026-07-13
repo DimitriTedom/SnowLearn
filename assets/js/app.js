@@ -1,8 +1,3 @@
-// ============================================================
-//  SnowLearn — app.js (global utilities)
-// ============================================================
-
-// ------ Modal helpers ------
 function openModal(id) {
   const el = document.getElementById(id);
   if (el) {
@@ -19,7 +14,6 @@ function closeModal(id) {
   }
 }
 
-// Close on backdrop click & .modal-close buttons
 document.addEventListener('click', (e) => {
   if (e.target.classList.contains('modal-overlay')) {
     e.target.classList.remove('open');
@@ -38,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Mobile sidebar toggle
   const toggle = document.querySelector('.menu-toggle');
   const sidebar = document.querySelector('.sidebar');
   if (toggle && sidebar) {
@@ -50,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Auto-dismiss alerts after 5s
   document.querySelectorAll('.alert').forEach(alert => {
     setTimeout(() => {
       alert.style.transition = 'opacity 0.4s';
@@ -60,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// ------ Toast system ------
 const Toast = {
   show(msg, type = 'info', duration = 4000) {
     let container = document.querySelector('.toast-container');
@@ -92,7 +83,6 @@ const Toast = {
   info:    (msg) => Toast.show(msg, 'info'),
 };
 
-// ------ Table live search ------
 function tableSearch(inputId, tableId) {
   const input = document.getElementById(inputId);
   const table = document.getElementById(tableId);
@@ -105,7 +95,6 @@ function tableSearch(inputId, tableId) {
   });
 }
 
-// ------ AJAX helper ------
 async function fetchJSON(url, options = {}) {
   try {
     const res = await fetch(url, {
@@ -114,17 +103,15 @@ async function fetchJSON(url, options = {}) {
     });
     return await res.json();
   } catch (e) {
-    console.error('fetchJSON error:', e);
+    console.error(e);
     return { error: e.message };
   }
 }
 
-// ------ Confirm dialog ------
 function confirmAction(msg, fn) {
   if (confirm(msg)) fn();
 }
 
-// ------ Progress bar animate ------
 function animateProgress(el, target) {
   let current = 0;
   const step = target / 40;

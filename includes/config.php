@@ -1,8 +1,4 @@
 <?php
-// ============================================================
-//  SnowLearn LMS — Configuration
-// ============================================================
-
 define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
 define('DB_USER', getenv('DB_USER') ?: 'root');
 define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : '');
@@ -16,7 +12,6 @@ define('UPLOAD_CERT',  __DIR__ . '/../uploads/certificates/');
 define('APP_NAME', 'SnowLearn');
 define('APP_VERSION', '1.0.0');
 
-// Créer les dossiers d'upload si nécessaire
 foreach ([UPLOAD_PDF, UPLOAD_VIDEO, UPLOAD_CERT] as $dir) {
     if (!is_dir($dir)) {
         mkdir($dir, 0777, true);
@@ -40,9 +35,7 @@ function getDB(): PDO {
     return $pdo;
 }
 
-// Met à jour la progression globale d'un étudiant dans un module
 function updateModuleProgress(PDO $db, int $student_id, int $module_id): void {
-    // Nombre total de leçons dans le module
     $stmt = $db->prepare("
         SELECT COUNT(*) AS total
         FROM lessons l
@@ -54,7 +47,6 @@ function updateModuleProgress(PDO $db, int $student_id, int $module_id): void {
 
     if ($total === 0) return;
 
-    // Leçons complétées
     $stmt2 = $db->prepare("
         SELECT COUNT(*) AS done
         FROM student_lessons sl
@@ -65,7 +57,6 @@ function updateModuleProgress(PDO $db, int $student_id, int $module_id): void {
     $stmt2->execute([$student_id, $module_id]);
     $done = (int)($stmt2->fetch()['done'] ?? 0);
 
-    // Score moyen sur les quiz du module passés
     $stmt3 = $db->prepare("
         SELECT AVG(r.pourcentage) AS avg_score
         FROM results r

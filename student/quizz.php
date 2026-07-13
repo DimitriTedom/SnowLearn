@@ -9,7 +9,6 @@ if (!$lesson_id) { header('Location: modules.php'); exit; }
 $db         = getDB();
 $student_id = currentUser()['id'];
 
-// Verify lesson completed
 $done = $db->prepare("SELECT 1 FROM student_lessons WHERE student_id=? AND lesson_id=? LIMIT 1");
 $done->execute([$student_id, $lesson_id]);
 if (!$done->fetch()) {
@@ -17,7 +16,6 @@ if (!$done->fetch()) {
     exit;
 }
 
-// Fetch quiz
 $quiz = $db->prepare("
     SELECT qz.*, l.titre AS lesson_titre, l.id AS lesson_id, c.module_id
     FROM quizzes qz
@@ -30,17 +28,14 @@ $quiz->execute([$lesson_id]);
 $quiz = $quiz->fetch();
 if (!$quiz) { header('Location: lesson.php?id=' . $lesson_id); exit; }
 
-// Already attempted?
 $attempt = $db->prepare("SELECT * FROM results WHERE student_id=? AND quiz_id=? LIMIT 1");
 $attempt->execute([$student_id, $quiz['id']]);
 $attempt = $attempt->fetch();
 
-// Questions
 $questions = $db->prepare("SELECT * FROM quiz_questions WHERE quiz_id=? ORDER BY id ASC");
 $questions->execute([$quiz['id']]);
 $questions = $questions->fetchAll();
 
-// Handle submit
 $result_data = null;
 if (!$attempt && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_quiz'])) {
     $score = 0;
@@ -62,10 +57,8 @@ if (!$attempt && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_q
         ON DUPLICATE KEY UPDATE score=VALUES(score), total=VALUES(total), pourcentage=VALUES(pourcentage), passed=VALUES(passed), taken_at=NOW()
     ")->execute([$student_id, $quiz['id'], $lesson_id, $score, $total, $pct, $passed ? 1 : 0]);
 
-    // Update module progress
     updateModuleProgress($db, $student_id, $quiz['module_id']);
 
-    // Auto-deliver certificate if eligible
     $prog_check = $db->prepare("
         SELECT p.pourcentage, m.passing_threshold
         FROM progress p
@@ -84,7 +77,6 @@ if (!$attempt && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_q
     exit;
 }
 
-// Reload attempt after submit redirect
 if (!$attempt) {
     $attempt = $db->prepare("SELECT * FROM results WHERE student_id=? AND quiz_id=? LIMIT 1");
     $attempt->execute([$student_id, $quiz['id']]);
@@ -118,7 +110,6 @@ $show_results = ($attempt && isset($_GET['done'])) || $attempt;
       </div>
 
       <?php if ($show_results && $attempt): ?>
-      <!-- RESULTS -->
       <div class="card" style="margin-bottom:24px;background:<?= $attempt['passed'] ? 'rgba(16,185,129,.08)' : 'rgba(239,68,68,.08)' ?>;border-color:<?= $attempt['passed'] ? 'rgba(16,185,129,.25)' : 'rgba(239,68,68,.25)' ?>;">
         <div class="card-body" style="text-align:center;padding:32px;">
           <div style="width:72px;height:72px;border-radius:50%;background:<?= $attempt['passed'] ? 'var(--success-light)' : 'var(--danger-light)' ?>;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
@@ -139,7 +130,6 @@ $show_results = ($attempt && isset($_GET['done'])) || $attempt;
         </div>
       </div>
 
-      <!-- Answer review -->
       <div style="display:flex;flex-direction:column;gap:14px;">
         <?php foreach ($questions as $idx => $q): ?>
         <div class="question-card">
@@ -167,12 +157,10 @@ $show_results = ($attempt && isset($_GET['done'])) || $attempt;
       </div>
 
       <?php else: ?>
-      <!-- QUIZ FORM -->
       <?php if (empty($questions)): ?>
       <div class="card"><div style="padding:40px;text-align:center;color:var(--text-muted);">Ce quiz n'a pas encore de questions.</div></div>
       <?php else: ?>
 
-      <!-- Progress steps -->
       <div class="quiz-progress" style="margin-bottom:24px;">
         <?php for ($i = 0; $i < count($questions); $i++): ?>
         <div class="quiz-step" id="step-<?= $i ?>"></div>
@@ -217,11 +205,9 @@ $show_results = ($attempt && isset($_GET['done'])) || $attempt;
 </div>
 <script src="../assets/js/app.js"></script>
 <script>
-let currentQ = 0;
-const total = <?= count($questions) ?>;
+let total = <?= count($questions) ?>;
 
 function nextQuestion(idx, total) {
-  // Mark step done
   const step = document.getElementById('step-' + idx);
   if (step) { step.classList.add('done'); }
 
@@ -232,14 +218,12 @@ function nextQuestion(idx, total) {
       document.getElementById('qcard-' + next).style.display = 'block';
       document.getElementById('step-' + next).classList.add('active');
     } else {
-      // Last question answered
       document.getElementById('btn-submit').style.display = 'inline-flex';
       document.getElementById('submit-wrap').style.removeProperty('display');
     }
   }, 400);
 }
 
-// Init first step
 const s0 = document.getElementById('step-0');
 if (s0) s0.classList.add('active');
 </script>

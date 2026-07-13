@@ -9,7 +9,6 @@ if (!$lesson_id) { header('Location: modules.php'); exit; }
 $db         = getDB();
 $student_id = currentUser()['id'];
 
-// Fetch lesson + course + module
 $stmt = $db->prepare("
     SELECT l.*, c.id AS course_id, c.module_id, c.titre AS course_titre, m.titre AS module_titre
     FROM lessons l
@@ -25,17 +24,14 @@ if (!$lesson) { header('Location: modules.php'); exit; }
 $module_id = $lesson['module_id'];
 $course_id = $lesson['course_id'];
 
-// Completed?
 $done_check = $db->prepare("SELECT 1 FROM student_lessons WHERE student_id=? AND lesson_id=? LIMIT 1");
 $done_check->execute([$student_id, $lesson_id]);
 $is_completed = (bool)$done_check->fetch();
 
-// Quiz?
 $quiz = $db->prepare("SELECT * FROM quizzes WHERE lesson_id=? LIMIT 1");
 $quiz->execute([$lesson_id]);
 $quiz = $quiz->fetch();
 
-// TOC - all lessons in this course
 $toc = $db->prepare("
     SELECT l.id, l.titre, l.ordre, l.type, sl.completed_at
     FROM lessons l
@@ -46,7 +42,6 @@ $toc = $db->prepare("
 $toc->execute([$student_id, $course_id]);
 $toc = $toc->fetchAll();
 
-// Previous / Next lesson
 $prev = $next = null;
 foreach ($toc as $idx => $t) {
     if ($t['id'] == $lesson_id) {
@@ -78,7 +73,6 @@ foreach ($toc as $idx => $t) {
       </div>
     </header>
     <main class="page-body">
-      <!-- Breadcrumb -->
       <div class="back-nav">
         <a href="modules.php">
           <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/></svg>
@@ -91,9 +85,7 @@ foreach ($toc as $idx => $t) {
       </div>
 
       <div class="lesson-viewer-wrap">
-        <!-- Main viewer -->
         <div>
-          <!-- Gate status -->
           <div class="lesson-gate <?= $is_completed ? 'state-done' : 'state-locked' ?>" id="lesson-gate">
             <div class="gate-icon">
               <?php if ($is_completed): ?>
@@ -129,7 +121,6 @@ foreach ($toc as $idx => $t) {
             <?php endif; ?>
           </div>
 
-          <!-- Video track bar -->
           <?php if ($lesson['type'] === 'video' && !$is_completed): ?>
           <div class="video-track-wrap">
             <svg viewBox="0 0 24 24" width="14" height="14" stroke="var(--primary)" fill="none" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -138,7 +129,6 @@ foreach ($toc as $idx => $t) {
           </div>
           <?php endif; ?>
 
-          <!-- Media -->
           <div class="lesson-viewer" style="margin-top:16px;">
             <?php if ($lesson['type'] === 'video'): ?>
             <video id="lesson-video" controls style="width:100%;max-height:520px;background:#000;display:block;">
@@ -157,7 +147,6 @@ foreach ($toc as $idx => $t) {
           </div>
         </div>
 
-        <!-- Sidebar TOC -->
         <div class="lesson-sidebar-panel">
           <div class="lesson-toc">
             <div class="lesson-toc-header">Sommaire du cours</div>
@@ -173,7 +162,6 @@ foreach ($toc as $idx => $t) {
             <?php endforeach; ?>
           </div>
 
-          <!-- Nav buttons -->
           <div style="display:flex;gap:8px;">
             <?php if ($prev): ?>
             <a href="lesson.php?id=<?= $prev['id'] ?>" class="btn btn-ghost btn-sm" style="flex:1;justify-content:center;">← Préc.</a>

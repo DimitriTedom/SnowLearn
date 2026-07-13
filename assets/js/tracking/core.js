@@ -1,4 +1,3 @@
-// tracking/core.js — AJAX lesson completion
 (function () {
   const LESSON_ID   = window.LESSON_ID;
   const HAS_QUIZ    = window.HAS_QUIZ;
@@ -16,7 +15,6 @@
       });
       const data = await res.json();
       if (data.success) {
-        // Update gate UI
         const gate = document.getElementById('lesson-gate');
         if (gate) {
           gate.className = 'lesson-gate state-done';
@@ -32,7 +30,6 @@
           `;
         }
         Toast.success('Leçon marquée comme terminée !');
-        // fetch update progress in background
         fetch('../api/update_progress.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
@@ -40,7 +37,7 @@
         });
       }
     } catch (e) {
-      console.error('markLessonDone error', e);
+      console.error(e);
     }
   };
 })();

@@ -1,69 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* ============================================================
-   SNOWLEARN LMS — Design System Dark Premium
-   ============================================================ */
-
 :root {
-  /* Backgrounds */
-  --bg:        #080810;
-  --surface:   #0f0f1a;
-  --surface2:  #161625;
-  --surface3:  #1e1e30;
-  --glass:     rgba(255,255,255,0.04);
-  --glass-hover: rgba(255,255,255,0.07);
+  --bg:        #f8fafc;
+  --surface:   #ffffff;
+  --surface2:  #f1f5f9;
+  --surface3:  #e2e8f0;
+  --glass:     rgba(0,0,0,0.02);
+  --glass-hover: rgba(0,0,0,0.04);
 
-  /* Brand */
-  --primary:       #6366f1;
-  --primary-hover: #4f46e5;
-  --primary-dark:  #3730a3;
-  --primary-light: rgba(99,102,241,0.12);
-  --primary-glow:  rgba(99,102,241,0.25);
+  --primary:       #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-dark:  #312e81;
+  --primary-light: rgba(79,70,229,0.08);
+  --primary-glow:  rgba(79,70,229,0.15);
 
-  --accent:        #a855f7;
-  --accent-hover:  #9333ea;
-  --accent-light:  rgba(168,85,247,0.12);
-  --accent-glow:   rgba(168,85,247,0.25);
+  --accent:        #9333ea;
+  --accent-hover:  #7e22ce;
+  --accent-light:  rgba(147,51,234,0.08);
+  --accent-glow:   rgba(147,51,234,0.15);
 
-  /* Semantic */
   --success:       #10b981;
-  --success-light: rgba(16,185,129,0.12);
-  --warning:       #f59e0b;
-  --warning-light: rgba(245,158,11,0.12);
-  --danger:        #ef4444;
-  --danger-light:  rgba(239,68,68,0.12);
-  --info:          #3b82f6;
-  --info-light:    rgba(59,130,246,0.12);
+  --success-light: rgba(16,185,129,0.08);
+  --warning:       #d97706;
+  --warning-light: rgba(217,119,6,0.08);
+  --danger:        #dc2626;
+  --danger-light:  rgba(220,38,38,0.08);
+  --info:          #2563eb;
+  --info-light:    rgba(37,99,235,0.08);
 
-  /* Text */
-  --text:        #f1f5f9;
-  --text-muted:  #94a3b8;
+  --text:        #0f172a;
+  --text-muted:  #475569;
   --text-light:  #64748b;
-  --text-dim:    #475569;
+  --text-dim:    #94a3b8;
 
-  /* Borders */
-  --border:       rgba(255,255,255,0.07);
-  --border-hover: rgba(255,255,255,0.14);
-  --border-focus: rgba(99,102,241,0.5);
+  --border:       #e2e8f0;
+  --border-hover: #cbd5e1;
+  --border-focus: #818cf8;
 
-  /* Radii */
   --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius:    12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --radius-sm: 6px;
+  --radius:    10px;
+  --radius-lg: 12px;
+  --radius-xl: 20px;
 
-  /* Shadows */
-  --shadow-sm:   0 1px 3px rgba(0,0,0,0.4);
-  --shadow:      0 4px 16px rgba(0,0,0,0.5);
-  --shadow-lg:   0 8px 32px rgba(0,0,0,0.6);
-  --shadow-glow: 0 0 40px rgba(99,102,241,0.15);
+  --shadow-sm:   0 1px 2px 0 rgba(0,0,0,0.05);
+  --shadow:      0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.08);
+  --shadow-lg:   0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+  --shadow-glow: 0 0 20px rgba(79,70,229,0.05);
 
-  /* Layout */
   --sidebar-w:    260px;
   --topbar-h:     64px;
 
-  /* Transitions */
   --t:      0.18s ease;
   --t-slow: 0.3s cubic-bezier(0.16,1,0.3,1);
 }
@@ -1256,20 +1243,22 @@ td {
    CERTIFICATE
    ============================================================ */
 .cert-preview {
-  background: linear-gradient(135deg, #0d0d1f 0%, #131325 50%, #0d0d1f 100%);
-  border: 1px solid var(--border);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%);
+  border: 1.5px solid var(--border);
   border-radius: var(--radius-xl);
   padding: 48px;
   text-align: center;
   position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow);
 }
 
 .cert-preview::before {
   content: '';
   position: absolute;
   inset: 8px;
-  border: 1px solid rgba(99,102,241,0.25);
+  border: 1.5px dashed var(--primary);
+  opacity: 0.25;
   border-radius: calc(var(--radius-xl) - 4px);
   pointer-events: none;
 }
@@ -1280,7 +1269,7 @@ td {
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   margin: 0 auto 20px;
-  box-shadow: 0 8px 30px var(--primary-glow);
+  box-shadow: var(--shadow-sm);
 }
 
 .cert-badge svg {

@@ -167,9 +167,9 @@ CREATE TABLE IF NOT EXISTS student_lessons (
 -- ============================================================
 
 INSERT INTO users (nom, prenom, email, password, role) VALUES
-('Admin',    'SnowLearn', 'admin@snowlearn.com',    '$2y$12$wGFXuMH/eLjJKp2nY4.63eU1VXV0lW2aL.0EE8PjbqgPH3xp3fETa', 'admin'),
-('Dupont',   'Marie',     'prof@snowlearn.com',     '$2y$12$dqbkGxg7F0M/E85VRv7daeI0u9y.8JT0GqV7j2OVaGJLi/aSa1y3i', 'teacher'),
-('Martin',   'Lucas',     'etudiant@snowlearn.com', '$2y$12$mGR6gMVHBiJqWJnOJ1AGM.TKqwGT9U.l3Xk7Z6G4pG4VPWQOiS2xW', 'student');
+('Admin',    'SnowLearn', 'admin@snowlearn.com',    '$2y$10$XngkT/SoGRX7G3PLSOZmCOPHWC8yK2fDNzgG9IlKQbEDhSpsciB.C', 'admin'),
+('Dupont',   'Marie',     'prof@snowlearn.com',     '$2y$10$dVwl2uD8hFzQqJWceTrG5u3x3Hlbbo1JT.zFuM5uh4eKxGBKeOP7G', 'teacher'),
+('Martin',   'Lucas',     'etudiant@snowlearn.com', '$2y$10$9OcM5qF.YM.bbtoZELVkRuLxx6Fk1hOVjznzoo9J4qMmlNh4ou2Pi', 'student');
 
 -- NOTE : Passwords hachés avec password_hash('Admin123!', PASSWORD_BCRYPT)
 -- Si les hash ci-dessus ne correspondent pas à votre version PHP,
