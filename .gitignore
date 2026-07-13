@@ -1,0 +1,6 @@
+uploads/pdfs/
+uploads/videos/
+uploads/certificates/
+*.log
+.DS_Store
+Thumbs.db

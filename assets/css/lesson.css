@@ -1,0 +1,206 @@
+/* ============================================================
+   Lesson viewer specific styles
+   ============================================================ */
+
+.lesson-viewer-wrap {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+  align-items: start;
+}
+
+.lesson-viewer {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+video {
+  width: 100%;
+  max-height: 520px;
+  background: #000;
+  display: block;
+}
+
+.pdf-frame {
+  width: 100%;
+  height: 680px;
+  border: none;
+  display: block;
+  background: #fff;
+}
+
+/* Video progress */
+.video-track-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  background: var(--surface2);
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.video-track-bar {
+  flex: 1;
+  height: 5px;
+  background: var(--surface3);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.video-track-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 99px;
+  transition: width 0.3s ease;
+  width: 0%;
+}
+
+/* Lesson gate */
+.lesson-gate {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  border: 1px solid transparent;
+}
+
+.lesson-gate.state-locked {
+  background: var(--warning-light);
+  border-color: rgba(245,158,11,0.25);
+}
+
+.lesson-gate.state-done {
+  background: var(--success-light);
+  border-color: rgba(16,185,129,0.25);
+}
+
+.gate-icon {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.state-locked .gate-icon { background: rgba(245,158,11,0.2); }
+.state-done   .gate-icon { background: rgba(16,185,129,0.2); }
+
+.gate-icon svg {
+  width: 20px; height: 20px;
+  stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+
+.state-locked .gate-icon svg { color: var(--warning); }
+.state-done   .gate-icon svg { color: var(--success); }
+
+.gate-text { flex: 1; }
+
+.gate-title {
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.gate-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Sidebar panel */
+.lesson-sidebar-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.lesson-toc {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.lesson-toc-header {
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.toc-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: var(--t);
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.toc-item:last-child { border-bottom: none; }
+.toc-item:hover { background: var(--glass); color: var(--text); }
+.toc-item.current { background: var(--primary-light); color: var(--primary); }
+.toc-item.done-toc { color: var(--success); }
+
+.toc-status {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.6rem;
+}
+
+.toc-item.done-toc  .toc-status { background: var(--success-light); border-color: var(--success); color: var(--success); }
+.toc-item.current   .toc-status { background: var(--primary-light); border-color: var(--primary); color: var(--primary); }
+
+/* Back nav breadcrumb */
+.back-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.back-nav a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  transition: var(--t);
+}
+
+.back-nav a:hover { color: var(--primary); }
+.back-nav svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+/* PDF hint */
+.pdf-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--info-light);
+  border: 1px solid rgba(59,130,246,0.2);
+  border-radius: var(--radius);
+  font-size: 0.8rem;
+  color: var(--info);
+  margin-top: 12px;
+}
+
+.pdf-hint svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; flex-shrink: 0; margin-top: 1px; }
+
+@media (max-width: 900px) {
+  .lesson-viewer-wrap { grid-template-columns: 1fr; }
+  .lesson-sidebar-panel { order: -1; }
+}
